@@ -43,28 +43,28 @@
   </div>
 </template>
 <script>
-import Render from './Render'
+import Render from "./Render";
 
 export default {
-  name: 'Table',
+  name: "Table",
   components: {
     Render,
   },
   props: {
     align: {
       type: String,
-      default: 'center',
+      default: "center",
     },
     // table主键
     rowKey: {
       type: String,
-      default: 'id',
+      default: "id",
     },
     // 列表数据
     tableData: {
       type: Array,
       default() {
-        return []
+        return [];
       },
     },
     // 数据总数
@@ -76,7 +76,7 @@ export default {
     columns: {
       type: Array,
       default: () => {
-        return []
+        return [];
       },
     },
     // 是否加载中
@@ -101,59 +101,58 @@ export default {
   data() {
     return {
       downloadLoading: false,
-    }
+    };
   },
   computed: {
     layout() {
-      const layout = ['total', 'prev', 'pager', 'next']
+      const layout = ["total", "prev", "pager", "next"];
       if (this.pageSizes.length) {
-        layout.push('sizes')
+        layout.push("sizes");
       }
-      return layout.join(', ')
+      return layout.join(", ");
     },
   },
   methods: {
     rowDblclick(row) {
-      this.$emit('row-dblclick', row)
+      this.$emit("row-dblclick", row);
     },
     rowClick(row, column) {
-      let target = this.tableData.findIndex((item) => item.id === row.id)
-      this.$refs.elTable.toggleRowSelection(this.tableData[target])
+      let target = this.tableData.findIndex((item) => item.id === row.id);
+      this.$refs.elTable.toggleRowSelection(this.tableData[target]);
     },
     // 取消全部选择内容
     setAllSelection(flag) {
       this.$nextTick(() => {
-        this.$refs.elTable.clearSelection()
-      })
+        this.$refs.elTable.clearSelection();
+      });
     },
     // 多选切换单行选中状态
     setSelection(row, checked, id) {
       this.$nextTick(() => {
-        let target = this.tableData.findIndex((item) => item.id === id)
-        this.$refs.elTable.toggleRowSelection(this.tableData[target], checked)
-      })
+        let target = this.tableData.findIndex((item) => item.id === id);
+        this.$refs.elTable.toggleRowSelection(this.tableData[target], checked);
+      });
     },
     // 已选项
     selectionChange(selections) {
-      this.$emit('selectionChange', selections)
+      this.$emit("selectionChange", selections);
     },
     // 切换页面
     pageChange(page) {
-      this.$emit('pageChange', page)
+      this.$emit("pageChange", page);
     },
     sizeChange(size) {
-      this.$emit('sizeChange', size)
+      this.$emit("sizeChange", size);
     },
     setAttrs(params) {
-      // eslint-disable-next-line
-      const { slot, ...options } = params
+      const { slot, ...options } = params;
       if (!options.align) {
-        options.align = 'center'
+        options.align = "center";
       }
-      return { ...options }
+      return { ...options };
     },
   },
-}
+};
 </script>
 <style scoped>
 .table-img {
